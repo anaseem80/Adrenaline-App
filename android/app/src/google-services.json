@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "208758329643",
+    "project_id": "arab-medicine-a1057",
+    "storage_bucket": "arab-medicine-a1057.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208758329643:android:6cfdf93173554a209ff56e",
+        "android_client_info": {
+          "package_name": "com.app.arabmedicine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208758329643-o8crt7htrgs4iantrj1of17vip0ib15h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGAy9Dgli8l3ExsC0kNAZCh45ug1yosoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208758329643-o8crt7htrgs4iantrj1of17vip0ib15h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "208758329643-g3l5ifa6e590988e1ptahke0ss1igspt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.arabmedicine"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208758329643:android:5f0e9eb79c7205799ff56e",
+        "android_client_info": {
+          "package_name": "com.example.arabmedicine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208758329643-mo1mia02ruqi87euf55e50vou7fiagt2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.arabmedicine",
+            "certificate_hash": "1a73493d31db7a56423ec4498485479561d9ce8a"
+          }
+        },
+        {
+          "client_id": "208758329643-o8crt7htrgs4iantrj1of17vip0ib15h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGAy9Dgli8l3ExsC0kNAZCh45ug1yosoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208758329643-o8crt7htrgs4iantrj1of17vip0ib15h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "208758329643-g3l5ifa6e590988e1ptahke0ss1igspt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.arabmedicine"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,386 @@
+import 'dart:async';
+import 'dart:io';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:arabmedicine/moduels/downloads/downloads.dart';
+import 'package:arabmedicine/moduels/enrolled_courses_screen/enrolled_courses.dart';
+import 'package:arabmedicine/moduels/login/login.dart';
+import 'package:arabmedicine/moduels/settings/settings.dart';
+import 'package:arabmedicine/moduels/user/user_settings.dart';
+import 'package:arabmedicine/shared/app_cubit.dart';
+import 'package:arabmedicine/shared/app_state.dart';
+import 'package:arabmedicine/shared/network/local/cache_helper.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:root/root.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
+import '../moduels/courses//home_screen.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+import 'package:flutter_iconly/flutter_iconly.dart';
+import '../shared/compontents/compenants.dart';
+import '../shared/network/remote/response.dart';
+import '../shared/styles/styles.dart';
+import 'cubit/home_layout_cubit.dart';
+import 'package:ios_insecure_screen_detector/ios_insecure_screen_detector.dart';
+import 'package:flutter/services.dart';
+
+class Home_Layout extends StatefulWidget {
+  @override
+  State<Home_Layout> createState() => _Home_LayoutState();
+}
+
+class _Home_LayoutState extends State<Home_Layout> {
+  int currentIndex = 0;
+  bool isDeveloperModeOn = false;
+  bool isRooted = false;
+  bool isJailbroken = false;
+  late StreamSubscription<bool> streamSubscription;
+  Stream<bool> checkIfScreenRecording() async* {
+    final IosInsecureScreenDetector insecureScreenDetector =
+        IosInsecureScreenDetector();
+    await insecureScreenDetector.initialize();
+
+    while (true) {
+      await Future.delayed(const Duration(seconds: 5)); // to avoid memory leak
+      bool isCaptured = await insecureScreenDetector.isCaptured();
+      yield isCaptured;
+    }
+  }
+
+
+
+  Future<void> checkDevice() async {
+    bool jailbroken = await FlutterJailbreakDetection.jailbroken;
+    bool developerMode = await FlutterJailbreakDetection.developerMode;
+    bool? rooted = await Root.isRooted(); // android
+    try {
+      isDeveloperModeOn = developerMode;
+      isJailbroken = jailbroken;
+      isRooted = rooted!;
+    } catch (error) {}
+    setState(() {
+      isDeveloperModeOn = isDeveloperModeOn;
+      isJailbroken = isJailbroken;
+      isRooted = isRooted;
+    });
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkDevice(); // Initial check
+
+    // Listen for changes in developer mode
+    FlutterJailbreakDetection.developerMode.then((developerMode) {
+      if (developerMode != isDeveloperModeOn) {
+        setState(() {
+          isDeveloperModeOn = developerMode;
+          checkDevice();
+        });
+      }
+    });
+
+    // Listen for changes in jailbroken status
+    FlutterJailbreakDetection.jailbroken.then((jailbroken) {
+      if (jailbroken != isJailbroken) {
+        setState(() {
+          isJailbroken = jailbroken;
+          checkDevice();
+        });
+      }
+    });
+
+    // Listen for changes in rooted status
+    Root.isRooted().then((rooted) {
+      if (rooted != isRooted) {
+        setState(() {
+          isRooted = rooted!;
+          checkDevice();
+        });
+      }
+    });
+    if (Platform.isIOS) {
+      streamSubscription = checkIfScreenRecording().listen((isRecording) {
+        if (isRecording) {
+          showDialog<void>(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                        "تسجيل الشاشة غير مسموح به هنا الرجاء القيام بتعطيل التسجيل"),
+                    Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    )
+                  ],
+                ),
+                content: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+      });
+    }
+  }
+
+  void dispose() {
+    if (Platform.isIOS) {
+      streamSubscription.cancel();
+    }
+    super.dispose();
+  }
+
+  final List<String> items = [
+    'Courses',
+    'Modules',
+    'Instructors',
+  ];
+  String? selectedValue;
+  String? buttonValue;
+
+  List<Widget> screens_home_layout = [
+    // home_screen(),
+    enrolled_courses(),
+    Downloads(),
+    User(),
+    Settings(),
+  ];
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  var titleController = TextEditingController();
+  var timeController = TextEditingController();
+
+  var currentTime;
+  ValueNotifier<int> dialogTrigger = ValueNotifier(0);
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+        GlobalKey<RefreshIndicatorState>();
+    return BlocProvider(
+      create: (context) => HomeLayoutCubit(),
+      child: BlocConsumer<HomeLayoutCubit, HomeLayoutState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = HomeLayoutCubit.get(context);
+          return Scaffold(
+            key: scaffoldKey,
+            appBar: AppBar(
+              title: Center(
+                child: Image.asset(
+                  AppCubit.get(context).isDark
+                      ? "assets/dark_logo.png"
+                      : "assets/small_logo.png",
+                  width: 120,
+                ),
+              ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                const url =
+                    'https://www.facebook.com/messages/t/101555342175775';
+                if (await canLaunchUrl(Uri.parse(url))) {
+                  await launchUrl(Uri.parse(url));
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+              child: Icon(Icons.sms_sharp),
+              backgroundColor: HexColor("#b92097"),
+            ),
+            body: RefreshIndicator(
+              key: _refreshIndicatorKey,
+              color: Colors.black,
+              backgroundColor: Colors.white,
+              strokeWidth: 2.0,
+              onRefresh: () async {
+                return Future<void>.delayed(const Duration(seconds: 5), () {
+                  setState(() {});
+                });
+              },
+              child: Column(
+                children: [
+                  ValueListenableBuilder(
+                      valueListenable: dialogTrigger,
+                      builder: (ctx, value, child) {
+                        if (isRooted || isJailbroken || isDeveloperModeOn) {
+                          Timer(Duration(seconds: 0), () {
+                            showDialog<void>(
+                              context: context,
+                              barrierDismissible:
+                                  false, // user must tap button!
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text("هاتفك غير امن"),
+                                      Icon(
+                                        Icons.warning,
+                                        color: Colors.red,
+                                      )
+                                    ],
+                                  ),
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(":الرجاء القيام بما يلي"),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        isDeveloperModeOn
+                                            ? Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(' تعطيل وضع المطور '),
+                                                ],
+                                              )
+                                            : Container(),
+                                        isRooted
+                                            ? Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text('إلغاء الروت'),
+                                                ],
+                                              )
+                                            : Container(),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    MaterialButton(
+                                      child: const Text('حسناً'),
+                                      color: Colors.red,
+                                      textColor: Colors.white,
+                                      onPressed: () async {
+                                        exit(0);
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            ).then((value) => exit(0));
+                          });
+                          Timer(Duration(seconds: 5), () {
+                            exit(0);
+                          });
+                        }
+                        return Container();
+                      }),
+                  Expanded(
+                    child: screens_home_layout[cubit.currentIndex],
+                  )
+                ],
+              ),
+            ),
+            bottomNavigationBar: Theme(
+              data: ThemeData(
+                  iconTheme: IconThemeData(
+                color: whiteColor,
+              )),
+              child: CurvedNavigationBar(
+                backgroundColor: lowWhiteColor,
+                color: lowWhiteColor,
+                animationCurve: Curves.easeOutExpo,
+                height: 70,
+                items: <Widget>[
+                  // Column(
+                  //   children: [
+                  //     Icon(IconlyBroken.bag2, size: 28),
+                  //     Text(
+                  //       "شراء",
+                  //       style: TextStyle(
+                  //         color: whiteColor,
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(Icons.cast_for_education_sharp, size: 25),
+                      Text(
+                        "كورساتي",
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontSize: main_size,
+                        ),
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(IconlyBroken.download, size: 25),
+                      Text(
+                        "تنزيلاتي",
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontSize: main_size,
+                        ),
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(IconlyBroken.user2, size: 25),
+                      Text(
+                        "المستخدم",
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontSize: main_size,
+                        ),
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(IconlyBroken.setting, size: 25),
+                      Text(
+                        "الإعدادات",
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontSize: main_size,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+                onTap: (index) {
+                  cubit.clickedItem(index);
+                },
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
