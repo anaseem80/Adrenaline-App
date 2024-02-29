@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:arabmedicine/models/login_model/login_model.dart';
-import 'package:arabmedicine/models/register_model/register_model.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
-import 'package:arabmedicine/shared/compontents/conestans.dart';
+import 'package:adrenaline/models/login_model/login_model.dart';
+import 'package:adrenaline/models/register_model/register_model.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/compontents/conestans.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

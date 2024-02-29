@@ -1,4 +1,4 @@
-import 'package:arabmedicine/shared/compontents/imports.dart';
+import 'package:adrenaline/shared/compontents/imports.dart';
 import 'package:flutter/material.dart';
 import 'package:pod_player/pod_player.dart';
 // import 'package:video_player/video_player.dart';

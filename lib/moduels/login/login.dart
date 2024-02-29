@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:arabmedicine/layout/home_layout.dart';
-import 'package:arabmedicine/moduels/login/cubit/cubit.dart';
-import 'package:arabmedicine/moduels/login/cubit/state.dart';
-import 'package:arabmedicine/moduels/register/register.dart';
-import 'package:arabmedicine/shared/network/local/cache_helper.dart';
+import 'package:adrenaline/layout/home_layout.dart';
+import 'package:adrenaline/moduels/login/cubit/cubit.dart';
+import 'package:adrenaline/moduels/login/cubit/state.dart';
+import 'package:adrenaline/moduels/register/register.dart';
+import 'package:adrenaline/shared/network/local/cache_helper.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -59,37 +59,37 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkDevice(); // Initial check
-
-    // Listen for changes in developer mode
-    FlutterJailbreakDetection.developerMode.then((developerMode) {
-      if (developerMode != isDeveloperModeOn) {
-        setState(() {
-          isDeveloperModeOn = developerMode;
-          checkDevice();
-        });
-      }
-    });
-
-    // Listen for changes in jailbroken status
-    FlutterJailbreakDetection.jailbroken.then((jailbroken) {
-      if (jailbroken != isJailbroken) {
-        setState(() {
-          isJailbroken = jailbroken;
-          checkDevice();
-        });
-      }
-    });
-
-    // Listen for changes in rooted status
-    Root.isRooted().then((rooted) {
-      if (rooted != isRooted) {
-        setState(() {
-          isRooted = rooted!;
-          checkDevice();
-        });
-      }
-    });
+    // checkDevice(); // Initial check
+    //
+    // // Listen for changes in developer mode
+    // FlutterJailbreakDetection.developerMode.then((developerMode) {
+    //   if (developerMode != isDeveloperModeOn) {
+    //     setState(() {
+    //       isDeveloperModeOn = developerMode;
+    //       checkDevice();
+    //     });
+    //   }
+    // });
+    //
+    // // Listen for changes in jailbroken status
+    // FlutterJailbreakDetection.jailbroken.then((jailbroken) {
+    //   if (jailbroken != isJailbroken) {
+    //     setState(() {
+    //       isJailbroken = jailbroken;
+    //       checkDevice();
+    //     });
+    //   }
+    // });
+    //
+    // // Listen for changes in rooted status
+    // Root.isRooted().then((rooted) {
+    //   if (rooted != isRooted) {
+    //     setState(() {
+    //       isRooted = rooted!;
+    //       checkDevice();
+    //     });
+    //   }
+    // });
   }
   Future<void> _showMyDialog(message) async {
     return showDialog<void>(

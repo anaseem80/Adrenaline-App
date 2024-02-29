@@ -15,7 +15,7 @@ void main() async {
     bool jailbroken = await FlutterJailbreakDetection.jailbroken;
     bool developerMode = await FlutterJailbreakDetection.developerMode;
     final deviceInfoPlugin = DeviceInfoPlugin();
-    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     final deviceInfo = await deviceInfoPlugin.androidInfo;
     Future<void>.delayed(const Duration(seconds: 3), () {
       if (deviceInfo.isPhysicalDevice == false) {
@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
-            home: SplashScreen(),
+            home: Home_Layout(),
           );
         },
       ),

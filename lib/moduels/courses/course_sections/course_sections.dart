@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:arabmedicine/moduels/courses/course_screen/cubit/course_view_layout_cubit.dart';
-import 'package:arabmedicine/moduels/mcq/mcq.dart';
-import 'package:arabmedicine/moduels/pdf/pdf.dart';
-import 'package:arabmedicine/moduels/player/player.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/moduels/courses/course_screen/cubit/course_view_layout_cubit.dart';
+import 'package:adrenaline/moduels/mcq/mcq.dart';
+import 'package:adrenaline/moduels/pdf/pdf.dart';
+import 'package:adrenaline/moduels/player/player.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

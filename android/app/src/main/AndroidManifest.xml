@@ -1,29 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.app.arabmedicine">
-<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
-<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"-->
-
-<!--    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />-->
-<!--    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_DIRECTORIES" />-->
-
-<!--    <uses-permission  android:name="android.permission.ACCESS_WIFI_STATE" />-->
-<!--    <uses-permission  android:name="android.permission.CHANGE_WIFI_STATE" />-->
-    <uses-permission android:name="org.apache.http.legacy" android:required="false"/>
-<!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>-->
-
-    <uses-permission  android:name="android.permission.INTERNET" />
-    <uses-permission  android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <application
-        android:label="Arab Medicine"
+    package="com.adrinaline.adrinaline">
+   <application
+        android:label="adrinaline"
         android:name="${applicationName}"
-        android:usesCleartextTraffic="true"
-        tools:replace="android:label"
-        android:requestLegacyExternalStorage="true"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -43,10 +23,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="FLUTTER_NOTIFICATION_CLICK"/>
-                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

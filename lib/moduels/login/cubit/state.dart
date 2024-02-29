@@ -1,4 +1,4 @@
-import 'package:arabmedicine/models/login_model/login_model.dart';
+import 'package:adrenaline/models/login_model/login_model.dart';
 
 abstract class LoginLayoutState {}
 

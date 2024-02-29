@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:arabmedicine/layout/home_layout.dart';
-import 'package:arabmedicine/moduels/login/login.dart';
-import 'package:arabmedicine/shared/app_cubit.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/layout/home_layout.dart';
+import 'package:adrenaline/moduels/login/login.dart';
+import 'package:adrenaline/shared/app_cubit.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

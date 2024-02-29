@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:arabmedicine/moduels/local_player/local_player.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/moduels/local_player/local_player.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'dart:io' as io;

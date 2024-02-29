@@ -1,8 +1,8 @@
-import 'package:arabmedicine/moduels/login/login.dart';
-import 'package:arabmedicine/shared/app_cubit.dart';
-import 'package:arabmedicine/shared/app_state.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/moduels/login/login.dart';
+import 'package:adrenaline/shared/app_cubit.dart';
+import 'package:adrenaline/shared/app_state.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';

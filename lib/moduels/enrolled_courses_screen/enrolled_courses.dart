@@ -1,7 +1,7 @@
-import 'package:arabmedicine/moduels/enrolled_courses_screen/cubit/cubit.dart';
-import 'package:arabmedicine/moduels/enrolled_courses_screen/cubit/state.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/moduels/enrolled_courses_screen/cubit/cubit.dart';
+import 'package:adrenaline/moduels/enrolled_courses_screen/cubit/state.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

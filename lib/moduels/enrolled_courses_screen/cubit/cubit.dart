@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:arabmedicine/moduels/courses/cubit/state.dart';
-import 'package:arabmedicine/moduels/enrolled_courses_screen/cubit/state.dart';
-import 'package:arabmedicine/shared/server_gate.dart';
+import 'package:adrenaline/moduels/courses/cubit/state.dart';
+import 'package:adrenaline/moduels/enrolled_courses_screen/cubit/state.dart';
+import 'package:adrenaline/shared/server_gate.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
-import 'package:arabmedicine/shared/compontents/conestans.dart';
+import 'package:adrenaline/shared/compontents/conestans.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class EnrolledCoursesLayoutCubit extends Cubit<EnrolledCourseLayoutState> {
   EnrolledCoursesLayoutCubit() : super(EnrolledCoursesInitial());

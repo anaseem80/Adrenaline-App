@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:arabmedicine/models/user/user_model.dart';
-import 'package:arabmedicine/shared/app_state.dart';
-import 'package:arabmedicine/shared/compontents/conestans.dart';
-import 'package:arabmedicine/shared/network/local/cache_helper.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/models/user/user_model.dart';
+import 'package:adrenaline/shared/app_state.dart';
+import 'package:adrenaline/shared/compontents/conestans.dart';
+import 'package:adrenaline/shared/network/local/cache_helper.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class AppCubit extends Cubit<AppState> {
     });
   }
 
-  bool isDark = false;
+  bool isDark = true;
 
   void toggleMode(){
     isDark = !isDark;

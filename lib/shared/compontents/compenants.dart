@@ -1,11 +1,14 @@
-import 'package:arabmedicine/layout/cubit/home_layout_cubit.dart';
-import 'package:arabmedicine/moduels/courses/course_screen/course_screen.dart';
-import 'package:arabmedicine/moduels/courses/courses_screen/courses_screen.dart';
-import 'package:arabmedicine/moduels/instructors/instructor_view/instructor_view.dart';
-import 'package:arabmedicine/moduels/instructors/instructors_module/instructors_module.dart';
-import 'package:arabmedicine/shared/app_cubit.dart';
-import 'package:arabmedicine/shared/compontents/conestans.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/layout/cubit/home_layout_cubit.dart';
+import 'package:adrenaline/moduels/Semester/semesters.dart';
+import 'package:adrenaline/moduels/collage_year/collage_year.dart';
+import 'package:adrenaline/moduels/collages/collages.dart';
+import 'package:adrenaline/moduels/courses/course_screen/course_screen.dart';
+import 'package:adrenaline/moduels/courses/courses_screen/courses_screen.dart';
+import 'package:adrenaline/moduels/instructors/instructor_view/instructor_view.dart';
+import 'package:adrenaline/moduels/instructors/instructors_module/instructors_module.dart';
+import 'package:adrenaline/shared/app_cubit.dart';
+import 'package:adrenaline/shared/compontents/conestans.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -230,7 +233,7 @@ Widget CourseItem({
                     ),
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      course["price"] != null ? course["price"] + " EGP" : "Free",
+                      course["price"] != null ? course["price"].toString() + " EGP" : "Free",
                       style: TextStyle(
                         fontSize: price_size,
                         fontWeight: FontWeight.bold,
@@ -248,6 +251,291 @@ Widget CourseItem({
       ),
     ),
   );
+
+
+Widget UniversitesComponent({
+  required context,
+  required universityData,
+}) => Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Container(
+        width: 100.0,
+        height: 100.0,
+        child: Material(
+          borderRadius: BorderRadius.circular(15.0),
+          color: lowWhiteColor,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20.0),
+            splashColor: Colors.blue.withAlpha(30),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Collages_View(
+                    universityObject: universityData
+
+                )),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl + universityData.image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Text(
+        universityData.name,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 12.0,
+          fontFamily: 'Almarai',
+        ),
+      ),
+    ],
+  ),
+);
+
+
+Widget CollagesView({
+  required context,
+  required collagesData,
+  required universityObject
+}) => Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Container(
+        width: 100.0,
+        height: 100.0,
+        child: Material(
+          borderRadius: BorderRadius.circular(15.0),
+          color: lowWhiteColor,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20.0),
+            splashColor: Colors.blue.withAlpha(30),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Collage_Year(
+                  collageData: collagesData,
+                )),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl + universityObject.image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Text(
+        collagesData.name,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 12.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Almarai',
+        ),
+      ),
+    ],
+  ),
+);
+
+Widget Collages_year({
+  required context,
+  required collagesYearData,
+}) => Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Container(
+        width: 100.0,
+        height: 100.0,
+        child: Material(
+          borderRadius: BorderRadius.circular(15.0),
+          color: lowWhiteColor,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20.0),
+            splashColor: Colors.blue.withAlpha(30),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Semesters_View(
+                    collageYear: collagesYearData
+                )),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: CachedNetworkImage(
+                  imageUrl: "https://w7.pngwing.com/pngs/78/312/png-transparent-building-university-college-computer-icons-college-angle-university-window.png",
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Text(
+        "السنة الدراسية " + collagesYearData.yearNumber.toString(),
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 12.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Almarai',
+        ),
+      ),
+    ],
+  ),
+);
+
+
+Widget SemestersView({
+  required context,
+  required SemestersData,
+}) => Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Container(
+        width: 100.0,
+        height: 100.0,
+        child: Material(
+          borderRadius: BorderRadius.circular(15.0),
+          color: lowWhiteColor,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20.0),
+            splashColor: Colors.blue.withAlpha(30),
+            onTap: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => Collage_Year()),
+              // );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: CachedNetworkImage(
+                  imageUrl: "https://w7.pngwing.com/pngs/78/312/png-transparent-building-university-college-computer-icons-college-angle-university-window.png",
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      SizedBox(height: 8.0),
+      Text(
+        SemestersData.semesterName,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 12.0,
+          fontFamily: 'Almarai',
+        ),
+      ),
+    ],
+  ),
+);
 
 Widget instructors(instructor, context, dynamic moduleName) => Material(
   borderRadius: BorderRadius.circular(15.0),

@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:arabmedicine/moduels/instructors/instructor_view/instructor_view.dart';
+import 'package:adrenaline/moduels/instructors/instructor_view/instructor_view.dart';
 import 'package:dio/dio.dart';
-import 'package:arabmedicine/shared/compontents/conestans.dart';
+import 'package:adrenaline/shared/compontents/conestans.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';

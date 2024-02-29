@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:isolate';
-import 'package:arabmedicine/moduels/player/cubit/player_layout_cubit.dart';
-import 'package:arabmedicine/moduels/video/video.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
-import 'package:arabmedicine/shared/compontents/imports.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/moduels/player/cubit/player_layout_cubit.dart';
+import 'package:adrenaline/moduels/video/video.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/compontents/imports.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:dio/dio.dart';
 import 'package:expandable_bottom_bar/expandable_bottom_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -13,7 +13,7 @@ import 'package:http/io_client.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pod_player/pod_player.dart';
 import 'package:flutter/services.dart';
-import 'package:arabmedicine/moduels/player/downloading_dialog.dart';
+import 'package:adrenaline/moduels/player/downloading_dialog.dart';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -279,6 +279,7 @@ class _playerState extends State<player> {
                                                     IconButton(
                                                       onPressed:() async {
                                                         url2 = cubit.lecture!.url?[video].url;
+                                                        print(url2);
                                                         //await _initializeController(url2);
                                                         Navigator.push<void>(
                                                           context,

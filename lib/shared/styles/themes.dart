@@ -1,5 +1,5 @@
-import 'package:arabmedicine/main.dart';
-import 'package:arabmedicine/shared/compontents/imports.dart';
+import 'package:adrenaline/main.dart';
+import 'package:adrenaline/shared/compontents/imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';

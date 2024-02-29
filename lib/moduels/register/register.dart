@@ -1,16 +1,16 @@
 import 'dart:ui';
 
-import 'package:arabmedicine/layout/home_layout.dart';
-import 'package:arabmedicine/moduels/login/cubit/cubit.dart';
-import 'package:arabmedicine/moduels/login/cubit/state.dart';
-import 'package:arabmedicine/moduels/login/login.dart';
-import 'package:arabmedicine/moduels/register/cubit/register_layout_cubit.dart';
-import 'package:arabmedicine/shared/network/local/cache_helper.dart';
+import 'package:adrenaline/layout/home_layout.dart';
+import 'package:adrenaline/moduels/login/cubit/cubit.dart';
+import 'package:adrenaline/moduels/login/cubit/state.dart';
+import 'package:adrenaline/moduels/login/login.dart';
+import 'package:adrenaline/moduels/register/cubit/register_layout_cubit.dart';
+import 'package:adrenaline/shared/network/local/cache_helper.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';

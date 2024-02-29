@@ -1,5 +1,5 @@
 
-import 'package:arabmedicine/models/user/user_model.dart';
+import 'package:adrenaline/models/user/user_model.dart';
 
 abstract class AppState {}
 

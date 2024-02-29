@@ -1,6 +1,6 @@
-import 'package:arabmedicine/moduels/instructors/instructor_view/cubit/instructor_view_layout_cubit.dart';
-import 'package:arabmedicine/moduels/modules/cubit/modules_layout_cubit.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
+import 'package:adrenaline/moduels/instructors/instructor_view/cubit/instructor_view_layout_cubit.dart';
+import 'package:adrenaline/moduels/modules/cubit/modules_layout_cubit.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

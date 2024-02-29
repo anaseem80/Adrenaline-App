@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:arabmedicine/moduels/courses/course_screen/cubit/course_view_layout_cubit.dart';
-import 'package:arabmedicine/moduels/courses/course_sections/course_sections.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/moduels/courses/course_screen/cubit/course_view_layout_cubit.dart';
+import 'package:adrenaline/moduels/courses/course_sections/course_sections.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:expandable_text/expandable_text.dart';

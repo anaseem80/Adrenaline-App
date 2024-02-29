@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'package:arabmedicine/moduels/courses/course_screen/course_screen.dart';
-import 'package:arabmedicine/moduels/courses/cubit/cubit.dart';
-import 'package:arabmedicine/moduels/courses/cubit/state.dart';
-import 'package:arabmedicine/moduels/instructors/cubit/instructors_layout_cubit.dart';
-import 'package:arabmedicine/moduels/instructors/instructors.dart';
-import 'package:arabmedicine/moduels/modules/modules.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
-import 'package:arabmedicine/shared/network/local/cache_helper.dart';
-import 'package:arabmedicine/shared/network/remote/response.dart';
-import 'package:arabmedicine/shared/styles/styles.dart';
+import 'package:adrenaline/moduels/courses/course_screen/course_screen.dart';
+import 'package:adrenaline/moduels/courses/cubit/cubit.dart';
+import 'package:adrenaline/moduels/courses/cubit/state.dart';
+import 'package:adrenaline/moduels/instructors/cubit/instructors_layout_cubit.dart';
+import 'package:adrenaline/moduels/instructors/instructors.dart';
+import 'package:adrenaline/moduels/modules/modules.dart';
+import 'package:adrenaline/moduels/universites/universites.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/network/local/cache_helper.dart';
+import 'package:adrenaline/shared/network/remote/response.dart';
+import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -21,6 +22,7 @@ import 'package:mysql_client/mysql_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class home_screen extends StatelessWidget {
+  TextEditingController _textFieldController = TextEditingController();
   final List<String> items = [
     'Courses',
     'Modules',
@@ -52,6 +54,28 @@ class home_screen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.all(25.0),
+                                child: TextField(
+                                  onSubmitted: (value) {
+                                    String enteredText = value;
+                                    print("User entered: $enteredText");
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'بحث',
+                                    prefixIcon: Icon(Icons.search),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, .1)), // RGB for black
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      borderSide: BorderSide(color: Color.fromRGBO(0, 0, 255, .1)), // RGB for blue
+                                    ),
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 height: 20.0,
                               ),
@@ -70,7 +94,7 @@ class home_screen extends StatelessWidget {
                                   viewportFraction: 0.8,
                                   initialPage: 0,
                                   autoPlay: true,
-                                  reverse: false,
+                                  reverse: true,
                                   autoPlayInterval: Duration(seconds: 3),
                                   autoPlayAnimationDuration: Duration(milliseconds: 800),
                                   autoPlayCurve: Curves.fastOutSlowIn,
@@ -161,15 +185,16 @@ class home_screen extends StatelessWidget {
                                         height: 350,
                                         child: ListView.separated(
                                           scrollDirection: Axis.horizontal,
+                                          reverse: true,
                                           physics: BouncingScrollPhysics(),
                                           itemBuilder: (context, index) => CourseItem(
-                                            course:cubit.courses[0][index],
-                                            context: context
+                                              course:cubit.courses[0][index],
+                                              context: context
                                           ),
                                           separatorBuilder: (context, index) => SizedBox(
                                             width: 20.0,
                                           ),
-                                          itemCount: 10,
+                                          itemCount: cubit.courses[0].length,
                                         ),
                                       ),
                                     ],
@@ -178,6 +203,39 @@ class home_screen extends StatelessWidget {
                               ),
                               SizedBox(
                                 height: 30.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(15.0),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "اخر العروض",
+                                        style: Theme.of(context).textTheme.headline5,
+                                      ),
+                                      SizedBox(
+                                        height: 20.0,
+                                      ),
+                                      SizedBox(
+                                        height: 350,
+                                        child: ListView.separated(
+                                          scrollDirection: Axis.horizontal,
+                                          reverse: true,
+                                          physics: BouncingScrollPhysics(),
+                                          itemBuilder: (context, index) => CourseItem(
+                                              course:cubit.courses[0][index],
+                                              context: context
+                                          ),
+                                          separatorBuilder: (context, index) => SizedBox(
+                                            width: 20.0,
+                                          ),
+                                          itemCount: cubit.courses[0].length,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -197,13 +255,17 @@ class home_screen extends StatelessWidget {
               )
           ),
           SizedBox(
+            height: 5.0,
+          ),
+          Universites_Component(),
+          SizedBox(
             height: 30.0,
           ),
           Instructors(),
           SizedBox(
             height: 30.0,
           ),
-          Modules(),
+          // Modules(),
         ],
       ),
     );

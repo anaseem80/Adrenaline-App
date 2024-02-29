@@ -1,5 +1,5 @@
-import 'package:arabmedicine/moduels/instructors/instructors.dart';
-import 'package:arabmedicine/shared/compontents/compenants.dart';
+import 'package:adrenaline/moduels/instructors/instructors.dart';
+import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:flutter/material.dart';
 
 class instructorsModule extends StatelessWidget {
