@@ -14,26 +14,39 @@ import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-class course_screen extends StatelessWidget {
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+class course_screen extends StatefulWidget {
   int? courseId;
 
   course_screen({
     this.courseId,
   });
+
+  @override
+  State<course_screen> createState() => _course_screenState();
+}
+
+class _course_screenState extends State<course_screen> {
   int? lessonsCount;
+
   dynamic? lessonName;
 
   String? enrollend_string_or_not;
+
   Color? enrollend_color_or_not;
+
   IconData? enrollend_icon_or_not;
+
+  double rating = 0.0;
+
+  TextEditingController reviewController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
         create: (context) =>
-            CourseViewLayoutCubit()..getCourse(courseId.toString()),
+            CourseViewLayoutCubit()..getCourse(widget.courseId.toString()),
         child: BlocConsumer<CourseViewLayoutCubit, CourseViewLayoutState>(
           listener: (context, state) {
             var cubit = CourseViewLayoutCubit.get(context);
@@ -117,6 +130,7 @@ class course_screen extends StatelessWidget {
                               children: [
                                 Text(
                                   "معلومات عن الكورس",
+                                  textAlign: TextAlign.end,
                                   style: TextStyle(
                                       color: whiteColor,
                                       fontWeight: FontWeight.bold,
@@ -157,49 +171,95 @@ class course_screen extends StatelessWidget {
                                 fontSize: font_size,
                               ),
                             ),
-                            cubit.course[0][0]['is_enrolled']
-                                ? Column(
-                                    children: [
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 70.0,
+                                ),
+                                Text(
+                                  "ماذا سوف تتعلم؟",
+                                  style: TextStyle(
+                                    color: whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: title_course_size,
+                                  ),
+                                ),
+                                ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, section) {
+                                    lessonsCount = cubit
+                                        .sections[0][section]['lesson']
+                                        .length;
+                                    lessonName = cubit.sections[0]
+                                        [section]['lesson'];
+                                    return ExpansionTileWidget(
+                                      section: cubit.sections[0][section],
+                                      lesson: cubit.sections[0][section]
+                                          ['lesson'],
+                                      lessonsCount: lessonsCount,
+                                      context: context,
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) =>
                                       SizedBox(
-                                        height: 70.0,
-                                      ),
-                                      Text(
-                                        "ماذا سوف تتعلم؟",
-                                        style: TextStyle(
-                                          color: whiteColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: title_course_size,
-                                        ),
-                                      ),
-                                      ListView.separated(
-                                        shrinkWrap: true,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, section) {
-                                          lessonsCount = cubit
-                                              .sections[0][section]['lesson']
-                                              .length;
-                                          lessonName = cubit.sections[0]
-                                              [section]['lesson'];
-                                          return ExpansionTileWidget(
-                                            section: cubit.sections[0][section],
-                                            lesson: cubit.sections[0][section]
-                                                ['lesson'],
-                                            lessonsCount: lessonsCount,
-                                            context: context,
-                                          );
-                                        },
-                                        separatorBuilder: (context, index) =>
-                                            SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        itemCount: cubit.sections[0].length,
-                                      ),
-                                    ],
-                                  )
-                                : Container(),
+                                    height: 5.0,
+                                  ),
+                                  itemCount: cubit.sections[0].length,
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
+                      Column(
+                        children: [
+                          Text(
+                            "قم بتقييم الكورس",
+                            style: TextStyle(
+                                color: whiteColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: title_course_size),
+                          ),
+                          RatingBar.builder(
+                            initialRating: rating,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (value) {
+                              setState(() {
+                                rating = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 20),
+                          TextField(
+                            controller: reviewController,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              hintText: 'Write your review here...',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Send API request with the rating and review
+                              print(rating);
+                              print(reviewController.text);
+                              // sendFeedback(rating, reviewController.text);
+                            },
+                            child: Text('Submit'),
+                          ),
+                        ],
+                      ),
+                      // instructors(cubit.course[0].owner, context, ""),
                       SizedBox(height: constrain.maxHeight * 0.04),
                       Container(
                         height: constrain.maxHeight * 0.06,
@@ -215,7 +275,7 @@ class course_screen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Course_sections(
-                                          courseId: courseId,
+                                          courseId: widget.courseId,
                                         )),
                               );
                             } else {

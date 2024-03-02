@@ -1,4 +1,5 @@
 import 'package:adrenaline/layout/cubit/home_layout_cubit.dart';
+import 'package:adrenaline/moduels/CoursesSemester/coursesSemester.dart';
 import 'package:adrenaline/moduels/Semester/semesters.dart';
 import 'package:adrenaline/moduels/collage_year/collage_year.dart';
 import 'package:adrenaline/moduels/collages/collages.dart';
@@ -284,7 +285,7 @@ Widget UniversitesComponent({
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: CachedNetworkImage(
-                  imageUrl: imageUrl + universityData.image,
+                  imageUrl: universityData.image,
                   imageBuilder: (context, imageProvider) => Container(
                     height: 50,
                     width: 50,
@@ -356,7 +357,7 @@ Widget CollagesView({
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: CachedNetworkImage(
-                  imageUrl: imageUrl + universityObject.image,
+                  imageUrl: collagesData.image,
                   imageBuilder: (context, imageProvider) => Container(
                     height: 50,
                     width: 50,
@@ -487,10 +488,12 @@ Widget SemestersView({
             borderRadius: BorderRadius.circular(20.0),
             splashColor: Colors.blue.withAlpha(30),
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => Collage_Year()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CoursesSemester(
+                  semesterId: SemestersData.id
+                )),
+              );
             },
             child: Padding(
               padding: EdgeInsets.all(15),
