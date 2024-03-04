@@ -14,11 +14,13 @@ class LoginModel{
 }
 
 class UserLogin {
+  int? id;
   String? email;
   String? firstname;
   String? lastname;
   String? user_picture;
   UserLogin.fromJson(Map<String, dynamic> json) {
+    this.id = json['id'];
     this.firstname = json['firstname'];
     this.lastname = json['lastname'];
     this.email = json['email'];

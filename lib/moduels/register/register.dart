@@ -52,6 +52,7 @@ class _LoginScreenState extends State<RegisterScreen> {
               var shared = await SharedPreferences.getInstance();
               shared.setString("email", state.registerModelData.data!.email.toString());
               shared.setString("firstname", state.registerModelData.data!.firstname.toString());
+              shared.setString("userID", state.registerModelData.data!.id.toString());
               shared.setString("lastname", state.registerModelData.data!.lastname.toString());
               shared.setString("profile_photo_path", state.registerModelData.data!.user_picture.toString());
               shared.setString("token", state.registerModelData.token.toString()).then((value) => {

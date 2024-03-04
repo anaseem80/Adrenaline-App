@@ -85,6 +85,7 @@ class User extends StatelessWidget {
                   shared.remove("firstname"),
                   shared.remove("lastname"),
                   shared.remove("profile_photo_path"),
+                  shared.remove("userID"),
                   if(value){
                     Navigator.pushReplacement<void, void>(
                       context,

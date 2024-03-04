@@ -80,6 +80,7 @@ dependencies:
       ref: logging
   ios_insecure_screen_detector: ^0.0.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
