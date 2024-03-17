@@ -4,29 +4,17 @@ import 'package:adrenaline/moduels/Intro_video/IntroVideo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:adrenaline/moduels/downloads/downloads.dart';
-import 'package:adrenaline/moduels/enrolled_courses_screen/enrolled_courses.dart';
-import 'package:adrenaline/moduels/login/login.dart';
 import 'package:adrenaline/moduels/settings/settings.dart';
 import 'package:adrenaline/moduels/user/user_settings.dart';
 import 'package:adrenaline/shared/app_cubit.dart';
-import 'package:adrenaline/shared/app_state.dart';
-import 'package:adrenaline/shared/network/local/cache_helper.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:root/root.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite/sqflite.dart';
-import '../moduels/courses//home_screen.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
 import 'package:flutter_iconly/flutter_iconly.dart';
-import '../shared/compontents/compenants.dart';
-import '../shared/network/remote/response.dart';
+import '../moduels/courses/home_screen.dart';
+import '../moduels/enrolled_courses_screen/enrolled_courses.dart';
 import '../shared/styles/styles.dart';
 import 'cubit/home_layout_cubit.dart';
 import 'package:ios_insecure_screen_detector/ios_insecure_screen_detector.dart';
@@ -157,8 +145,8 @@ class _Home_LayoutState extends State<Home_Layout> {
   String? buttonValue;
 
   List<Widget> screens_home_layout = [
-    home_screen(),
-    enrolled_courses(),
+    HomeScreen(),
+    EnrolledCourses(),
     Downloads(),
     User(),
     Settings(),

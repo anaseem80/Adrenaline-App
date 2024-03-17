@@ -31,8 +31,8 @@ class Data {
   int? id;
   String? name;
   String? image;
-  Null? createdAt;
-  Null? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   Data({this.id, this.name, this.image, this.createdAt, this.updatedAt});
 

@@ -1,15 +1,13 @@
-import 'package:adrenaline/moduels/enrolled_courses_screen/cubit/cubit.dart';
-import 'package:adrenaline/moduels/enrolled_courses_screen/cubit/state.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
-import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class enrolled_courses extends StatelessWidget {
+import 'cubit/cubit.dart';
+import 'cubit/state.dart';
+
+class EnrolledCourses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
 
     return BlocProvider(
       create: (context) => EnrolledCoursesLayoutCubit()..main(),
@@ -25,7 +23,6 @@ class enrolled_courses extends StatelessWidget {
           } else if (state is EnrolledCoursesLoaded) {
             if (cubit.enrolledCourses[0].length > 0) {
               return LayoutBuilder(builder: (context, size) {
-                final hightConstrain = size.maxHeight;
                 final widthConstrain = size.maxWidth;
                 return SingleChildScrollView(
                   child: Column(

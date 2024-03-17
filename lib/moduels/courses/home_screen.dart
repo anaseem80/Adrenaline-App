@@ -1,28 +1,16 @@
-import 'dart:convert';
-import 'package:adrenaline/moduels/courses/course_screen/course_screen.dart';
 import 'package:adrenaline/moduels/courses/cubit/cubit.dart';
 import 'package:adrenaline/moduels/courses/cubit/state.dart';
-import 'package:adrenaline/moduels/instructors/cubit/instructors_layout_cubit.dart';
 import 'package:adrenaline/moduels/instructors/instructors.dart';
-import 'package:adrenaline/moduels/modules/modules.dart';
 import 'package:adrenaline/moduels/universites/universites.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
-import 'package:adrenaline/shared/network/local/cache_helper.dart';
-import 'package:adrenaline/shared/network/remote/response.dart';
-import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:mysql_client/mysql_client.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class home_screen extends StatelessWidget {
-  TextEditingController _textFieldController = TextEditingController();
+import 'course_screen/course_screen.dart';
+
+class HomeScreen extends StatelessWidget {
   final List<String> items = [
     'Courses',
     'Modules',
@@ -54,6 +42,8 @@ class home_screen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+
+                              /// Search
                               Padding(
                                 padding: const EdgeInsets.all(25.0),
                                 child: TextField(
@@ -79,13 +69,19 @@ class home_screen extends StatelessWidget {
                               SizedBox(
                                 height: 20.0,
                               ),
-                              Text(
-                                "الكورسات الرائجة",
-                                style: Theme.of(context).textTheme.headline5,
+
+                              /// Courses
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  "الكورسات الرائجة",
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
                               ),
                               SizedBox(
                                 height: 20.0,
                               ),
+                              if (cubit.courses.isNotEmpty)
                               CarouselSlider.builder(
                                 itemCount: cubit.courses[0].length,
                                 options: CarouselOptions(
@@ -106,7 +102,7 @@ class home_screen extends StatelessWidget {
                                     onTap: () {
                                       Navigator.push(
                                         context,
-                                          MaterialPageRoute(builder: (context) => course_screen(
+                                          MaterialPageRoute(builder: (context) => CourseScreen(
                                             courseId: cubit.courses[0][itemIndex]['id'],
                                           ))
                                       );
@@ -168,6 +164,8 @@ class home_screen extends StatelessWidget {
                               SizedBox(
                                 height: 30.0,
                               ),
+
+                              /// Latest Courses
                               Container(
                                 padding: EdgeInsets.all(15.0),
                                 child: Container(
@@ -181,6 +179,7 @@ class home_screen extends StatelessWidget {
                                       SizedBox(
                                         height: 20.0,
                                       ),
+                                      if (cubit.courses.isNotEmpty)
                                       SizedBox(
                                         height: 350,
                                         child: ListView.separated(
@@ -204,6 +203,9 @@ class home_screen extends StatelessWidget {
                               SizedBox(
                                 height: 30.0,
                               ),
+
+                              /// Latest Offers
+                              if (cubit.courses.isNotEmpty)
                               Container(
                                 padding: EdgeInsets.all(15.0),
                                 child: Container(

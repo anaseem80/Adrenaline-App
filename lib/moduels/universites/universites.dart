@@ -5,6 +5,7 @@ import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:adrenaline/shared/compontents/imports.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:country_picker/country_picker.dart';
 
 class Universites_Component extends StatelessWidget {
   const Universites_Component({super.key});

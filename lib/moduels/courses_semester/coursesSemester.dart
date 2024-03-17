@@ -1,8 +1,11 @@
-import 'package:adrenaline/moduels/CoursesSemester/cubit/cubit.dart';
-import 'package:adrenaline/moduels/CoursesSemester/cubit/state.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:adrenaline/shared/compontents/imports.dart';
 import 'package:flutter/material.dart';
+
+import 'cubit/cubit.dart';
+import 'cubit/state.dart';
 
 class CoursesSemester extends StatelessWidget {
   int? semesterId;

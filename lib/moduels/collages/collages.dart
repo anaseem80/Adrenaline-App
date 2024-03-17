@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 
 class Collages_View extends StatelessWidget {
-  dynamic? universityObject;
+  dynamic universityObject;
   Collages_View({
     this.universityObject,
   });

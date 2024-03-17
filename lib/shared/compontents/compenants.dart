@@ -1,27 +1,20 @@
-import 'package:adrenaline/layout/cubit/home_layout_cubit.dart';
-import 'package:adrenaline/moduels/CoursesSemester/coursesSemester.dart';
 import 'package:adrenaline/moduels/Semester/semesters.dart';
 import 'package:adrenaline/moduels/collage_year/collage_year.dart';
 import 'package:adrenaline/moduels/collages/collages.dart';
-import 'package:adrenaline/moduels/courses/course_screen/course_screen.dart';
 import 'package:adrenaline/moduels/courses/courses_screen/courses_screen.dart';
 import 'package:adrenaline/moduels/instructors/instructor_view/instructor_view.dart';
 import 'package:adrenaline/moduels/instructors/instructors_module/instructors_module.dart';
-import 'package:adrenaline/shared/app_cubit.dart';
-import 'package:adrenaline/shared/compontents/conestans.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+
+import '../../moduels/courses/course_screen/course_screen.dart';
+import '../../moduels/courses_semester/coursesSemester.dart';
 
 Widget TextFormFieldMain ({
-  /*required String iconName,*/
   final void Function(String?)? onSubmit,
   final void Function()? obscureShow,
   final void Function()? onTap,
@@ -112,7 +105,7 @@ Widget CourseItem({
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => course_screen(
+            MaterialPageRoute(builder: (context) => CourseScreen(
               courseId: course['id'],
             )),
           );

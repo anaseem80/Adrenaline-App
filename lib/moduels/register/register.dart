@@ -7,6 +7,7 @@ import 'package:adrenaline/moduels/login/login.dart';
 import 'package:adrenaline/moduels/register/cubit/register_layout_cubit.dart';
 import 'package:adrenaline/shared/network/local/cache_helper.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _LoginScreenState extends State<RegisterScreen> {
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var passwordConfirmController = TextEditingController();
+  var countryController = TextEditingController();
   var obsecurePass = true;
   var obsecurePassConfirm = true;
 
@@ -231,7 +233,55 @@ class _LoginScreenState extends State<RegisterScreen> {
                                       },
                                     ),
                                     SizedBox(
-                                      height: 5.0,
+                                      height: 20.0,
+                                    ),
+                                    TextFormFieldMain(
+                                      onTap: () {
+                                        showCountryPicker(
+                                          context: context,
+                                          countryListTheme: CountryListThemeData(
+                                            flagSize: 25,
+                                            backgroundColor: Colors.white,
+                                            textStyle: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                                            bottomSheetHeight: 500, // Optional. Country list modal height
+                                            //Optional. Sets the border radius for the bottomsheet.
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20.0),
+                                              topRight: Radius.circular(20.0),
+                                            ),
+                                            //Optional. Styles the search field.
+                                            inputDecoration: InputDecoration(
+                                              labelText: 'Search',
+                                              hintText: 'Start typing to search',
+                                              prefixIcon: const Icon(Icons.search),
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: const Color(0xFF8C98A8).withOpacity(0.2),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          onSelect: (Country country) {
+                                            countryController.text = country.flagEmoji + " " + country.name;
+                                            debugPrint("flag emogi ${countryController.text}");
+                                            setState(() { });
+                                          },
+                                        );
+                                      },
+                                      text: "اختر البلد" ,
+                                      controller: countryController,
+                                      type: TextInputType.name,
+                                      context:context,
+                                      error: "Country",
+                                      prefix: Icons.home_work_outlined,
+                                      suffix: Icons.arrow_drop_down,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'هذا الحقل مطلوب';
+                                        }
+                                        return null;
+                                      },
+
                                     ),
                                     SizedBox(
                                       height: 20.0,

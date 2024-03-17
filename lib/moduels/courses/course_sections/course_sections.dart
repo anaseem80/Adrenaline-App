@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:adrenaline/moduels/courses/course_screen/cubit/course_view_layout_cubit.dart';
 import 'package:adrenaline/moduels/mcq/mcq.dart';
 import 'package:adrenaline/moduels/pdf/pdf.dart';
 import 'package:adrenaline/moduels/player/player.dart';
@@ -8,26 +6,21 @@ import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:path/path.dart' as p;
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 
-class Course_sections extends StatefulWidget {
+import '../course_screen/cubit/course_view_layout_cubit.dart';
+
+class CourseSections extends StatefulWidget {
   int? courseId;
 
-  Course_sections({
+  CourseSections({
     this.courseId,
   });
 
   @override
-  State<Course_sections> createState() => _Course_sectionsState();
+  State<CourseSections> createState() => _CourseSectionsState();
 }
 
-class _Course_sectionsState extends State<Course_sections> {
+class _CourseSectionsState extends State<CourseSections> {
   var dio = Dio();
   bool isChecked = false;
   @override
@@ -37,7 +30,6 @@ class _Course_sectionsState extends State<Course_sections> {
 
   @override
   Widget build(BuildContext context) {
-    int checkedall = 0;
     return Scaffold(
       appBar: AppBar(),
       body: BlocProvider(
@@ -108,7 +100,6 @@ class _Course_sectionsState extends State<Course_sections> {
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      var counter = 0;
                                       return InkWell(
                                         onTap: () async {
                                           Navigator.push(

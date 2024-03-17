@@ -1,18 +1,9 @@
-import 'dart:io';
-
-import 'package:adrenaline/layout/cubit/home_layout_cubit.dart';
-import 'package:adrenaline/moduels/enrolled_courses_screen/enrolled_courses.dart';
-import 'package:adrenaline/moduels/login/login.dart';
 import 'package:adrenaline/shared/app_cubit.dart';
-import 'package:adrenaline/shared/app_state.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:package_info/package_info.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 

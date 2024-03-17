@@ -1,36 +1,35 @@
-import 'dart:io';
 
-import 'package:adrenaline/moduels/courses/course_screen/cubit/course_view_layout_cubit.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:adrenaline/moduels/courses/course_screen/rates/rates.dart';
-import 'package:adrenaline/moduels/courses/course_sections/course_sections.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-class course_screen extends StatefulWidget {
+
+import '../course_sections/course_sections.dart';
+import 'cubit/course_view_layout_cubit.dart';
+class CourseScreen extends StatefulWidget {
   int? courseId;
 
-  course_screen({
+  CourseScreen({
     this.courseId,
   });
 
   @override
-  State<course_screen> createState() => _course_screenState();
+  State<CourseScreen> createState() => _CourseScreenState();
 }
 
-class _course_screenState extends State<course_screen> {
+class _CourseScreenState extends State<CourseScreen> {
   int? lessonsCount;
 
-  dynamic? lessonName;
+  dynamic lessonName;
 
   String? enrollend_string_or_not;
 
@@ -49,10 +48,9 @@ class _course_screenState extends State<course_screen> {
       child: Scaffold(
         body: BlocProvider(
           create: (context) =>
-              CourseViewLayoutCubit()..getCourse(widget.courseId.toString()),
+          CourseViewLayoutCubit()..getCourse(widget.courseId.toString()),
           child: BlocConsumer<CourseViewLayoutCubit, CourseViewLayoutState>(
             listener: (context, state) {
-              var cubit = CourseViewLayoutCubit.get(context);
               if (state is CourseLoaded) {}
             },
             builder: (context, state) {
@@ -386,7 +384,7 @@ class _course_screenState extends State<course_screen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => Course_sections(
+                                      builder: (context) => CourseSections(
                                         courseId: widget.courseId,
                                       ),
                                     ),

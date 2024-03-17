@@ -30,7 +30,8 @@ class UniversitesLayoutCubit extends Cubit<UniversitesLayoutState> {
       ),
     ).then((value) =>
     {
-        Universites ,universitesData = Universites.fromJson(value.data),
+        debugPrint("Response --> ${value.data}"),
+        universitesData = Universites.fromJson(value.data),
         emit(UniversitesLoaded(data: universitesData)),
     }
     ).catchError((onError) =>
