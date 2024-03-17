@@ -1,8 +1,10 @@
+import 'package:adrenaline/moduels/Search/screens/search.dart';
 import 'package:adrenaline/moduels/courses/cubit/cubit.dart';
 import 'package:adrenaline/moduels/courses/cubit/state.dart';
 import 'package:adrenaline/moduels/instructors/instructors.dart';
 import 'package:adrenaline/moduels/universites/universites.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
+import 'package:adrenaline/shared/navigations/navigations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,8 +50,10 @@ class HomeScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(25.0),
                                 child: TextField(
                                   onSubmitted: (value) {
-                                    String enteredText = value;
-                                    print("User entered: $enteredText");
+                                    NavigationFunctions.routingPage(
+                                      context: context,
+                                      page: SearchScreen(searchText: value),
+                                    );
                                   },
                                   decoration: InputDecoration(
                                     hintText: 'بحث',
@@ -83,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                               if (cubit.courses.isNotEmpty)
                               CarouselSlider.builder(
-                                itemCount: cubit.courses[0].length,
+                                itemCount: cubit.courses.length,
                                 options: CarouselOptions(
                                   height: 230,
                                   aspectRatio: 16/9,
@@ -114,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(15.0),
                                             child: CachedNetworkImage(
-                                              imageUrl: cubit.courses[0][itemIndex]['image'],
+                                              imageUrl: cubit.courses[itemIndex]['image'],
                                               imageBuilder: (context, imageProvider) => Container(
                                                 height: 200,
                                                 decoration: BoxDecoration(
@@ -187,13 +191,13 @@ class HomeScreen extends StatelessWidget {
                                           reverse: true,
                                           physics: BouncingScrollPhysics(),
                                           itemBuilder: (context, index) => CourseItem(
-                                              course:cubit.courses[0][index],
+                                              course:cubit.courses[index],
                                               context: context
                                           ),
                                           separatorBuilder: (context, index) => SizedBox(
                                             width: 20.0,
                                           ),
-                                          itemCount: cubit.courses[0].length,
+                                          itemCount: cubit.courses.length,
                                         ),
                                       ),
                                     ],
@@ -226,13 +230,13 @@ class HomeScreen extends StatelessWidget {
                                           reverse: true,
                                           physics: BouncingScrollPhysics(),
                                           itemBuilder: (context, index) => CourseItem(
-                                              course:cubit.courses[0][index],
+                                              course:cubit.courses[index],
                                               context: context
                                           ),
                                           separatorBuilder: (context, index) => SizedBox(
                                             width: 20.0,
                                           ),
-                                          itemCount: cubit.courses[0].length,
+                                          itemCount: cubit.courses.length,
                                         ),
                                       ),
                                     ],

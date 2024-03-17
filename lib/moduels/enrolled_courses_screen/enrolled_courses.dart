@@ -2,6 +2,7 @@ import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/widgets/empty_data_widget.dart';
 import 'cubit/cubit.dart';
 import 'cubit/state.dart';
 
@@ -64,34 +65,7 @@ class EnrolledCourses extends StatelessWidget {
                 );
               });
             } else {
-              return Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              AssetImage("assets/exercise-walk.gif"),
-                          radius: 70,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: Text(
-                            "😞 انت غير مفعل في اي كورس حتي الان",
-                            style: Theme.of(context).textTheme.headline3,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              return EmptyData(text:" 😞 انت غير مفعل في اي كورس حتي الان",);
             }
           } else if (state is EnrolledCoursesFailed) {
             return Text(state.error);
