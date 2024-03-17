@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'layout/home_layout.dart';
 import 'shared/compontents/imports.dart';
 bool get isRunningOnSimulator {
   final platform = Platform.isAndroid ? 'android' : 'iOS';
@@ -39,7 +40,7 @@ void main() async {
   Widget widget;
 
   if (token != null) {
-    widget = Home_Layout();
+    widget = HomeLayout();
     route = '/';
   } else {
     widget = LoginScreen();
@@ -97,7 +98,7 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
-            home: Home_Layout(),
+            home: HomeLayout(),
           );
         },
       ),

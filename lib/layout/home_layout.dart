@@ -16,16 +16,17 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../moduels/courses/home_screen.dart';
 import '../moduels/enrolled_courses_screen/enrolled_courses.dart';
 import '../shared/styles/styles.dart';
-import 'cubit/home_layout_cubit.dart';
 import 'package:ios_insecure_screen_detector/ios_insecure_screen_detector.dart';
-import 'package:flutter/services.dart';
 
-class Home_Layout extends StatefulWidget {
+import 'cubit/home_layout_cubit.dart';
+import 'cubit/home_layout_state.dart';
+
+class HomeLayout extends StatefulWidget {
   @override
-  State<Home_Layout> createState() => _Home_LayoutState();
+  State<HomeLayout> createState() => _HomeLayoutState();
 }
 
-class _Home_LayoutState extends State<Home_Layout> {
+class _HomeLayoutState extends State<HomeLayout> {
   int currentIndex = 0;
   bool isDeveloperModeOn = false;
   bool isRooted = false;
@@ -144,7 +145,7 @@ class _Home_LayoutState extends State<Home_Layout> {
   String? selectedValue;
   String? buttonValue;
 
-  List<Widget> screens_home_layout = [
+  List<Widget> screens_HomeLayout = [
     HomeScreen(),
     EnrolledCourses(),
     Downloads(),
@@ -318,7 +319,7 @@ class _Home_LayoutState extends State<Home_Layout> {
                   //       return Container();
                   //     }),
                   Expanded(
-                    child: screens_home_layout[cubit.currentIndex],
+                    child: screens_HomeLayout[cubit.currentIndex],
                   )
                 ],
               ),

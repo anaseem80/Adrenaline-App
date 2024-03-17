@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:adrenaline/layout/cubit/home_layout_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-part 'home_layout_state.dart';
+
 
 class HomeLayoutCubit extends Cubit<HomeLayoutState> {
   HomeLayoutCubit() : super(HomeLayoutInitial());

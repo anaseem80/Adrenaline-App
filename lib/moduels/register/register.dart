@@ -1,23 +1,15 @@
 import 'dart:ui';
-
-import 'package:adrenaline/layout/home_layout.dart';
-import 'package:adrenaline/moduels/login/cubit/cubit.dart';
-import 'package:adrenaline/moduels/login/cubit/state.dart';
 import 'package:adrenaline/moduels/login/login.dart';
 import 'package:adrenaline/moduels/register/cubit/register_layout_cubit.dart';
-import 'package:adrenaline/shared/network/local/cache_helper.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../layout/home_layout.dart';
 import '../../shared/compontents/compenants.dart';
 class RegisterScreen extends StatefulWidget {
 
@@ -62,7 +54,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                 Navigator.pushReplacement<void, void>(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (BuildContext context) => Home_Layout(),
+                    builder: (BuildContext context) => HomeLayout(),
                   ),
                 )
               });

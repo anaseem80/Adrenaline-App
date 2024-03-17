@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:adrenaline/layout/home_layout.dart';
 import 'package:adrenaline/moduels/login/login.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:root/root.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../layout/home_layout.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -169,7 +170,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Widget widget;
 
     if (token != null) {
-      widget = Home_Layout();
+      widget = HomeLayout();
     } else {
       widget = LoginScreen();
     }

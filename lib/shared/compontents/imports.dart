@@ -17,7 +17,6 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:hexcolor/hexcolor.dart';
 export 'package:package_info/package_info.dart';
 export 'package:shared_preferences/shared_preferences.dart';
-export 'package:adrenaline/layout/home_layout.dart';
 export 'package:adrenaline/layout/my_bloc_observer/my_bloc_opserver.dart';
 export 'package:adrenaline/shared/app_state.dart';
 export 'package:flutter_windowmanager/flutter_windowmanager.dart';

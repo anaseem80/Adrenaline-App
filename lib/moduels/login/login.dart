@@ -1,24 +1,19 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:adrenaline/layout/home_layout.dart';
 import 'package:adrenaline/moduels/login/cubit/cubit.dart';
 import 'package:adrenaline/moduels/login/cubit/state.dart';
 import 'package:adrenaline/moduels/register/register.dart';
-import 'package:adrenaline/shared/network/local/cache_helper.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:root/root.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../layout/home_layout.dart';
 import '../../shared/compontents/compenants.dart';
 class LoginScreen extends StatefulWidget {
 
@@ -142,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.pushReplacement<void, void>(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => Home_Layout(),
+                  builder: (BuildContext context) => HomeLayout(),
                 ),
               )
             });
@@ -367,7 +362,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Widget widget;
 
     if (token != null) {
-      widget = Home_Layout();
+      widget = HomeLayout();
     } else {
       widget = LoginScreen();
     }
