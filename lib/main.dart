@@ -12,24 +12,24 @@ bool get isRunningOnSimulator {
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isAndroid) {
-    bool jailbroken = await FlutterJailbreakDetection.jailbroken;
-    bool developerMode = await FlutterJailbreakDetection.developerMode;
-    final deviceInfoPlugin = DeviceInfoPlugin();
-    // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-    final deviceInfo = await deviceInfoPlugin.androidInfo;
-    Future<void>.delayed(const Duration(seconds: 3), () {
-      if (deviceInfo.isPhysicalDevice == false) {
-        exit(0);
-      }
-    });
-  }
+  // if (Platform.isAndroid) {
+  //   bool jailbroken = await FlutterJailbreakDetection.jailbroken;
+  //   bool developerMode = await FlutterJailbreakDetection.developerMode;
+  //   final deviceInfoPlugin = DeviceInfoPlugin();
+  //   // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  //   final deviceInfo = await deviceInfoPlugin.androidInfo;
+  //   Future<void>.delayed(const Duration(seconds: 3), () {
+  //     if (deviceInfo.isPhysicalDevice == false) {
+  //       exit(0);
+  //     }
+  //   });
+  // }
   Bloc.observer = SimpleBlocObserverr();
   Bloc.observer = MyBlocObserver();
   AppCubit();
-  if (isRunningOnSimulator) {
-    exit(0);
-  }
+  // if (isRunningOnSimulator) {
+  //   exit(0);
+  // }
   //CacheHelper.init();
   var shared = await SharedPreferences.getInstance();
   String? token;

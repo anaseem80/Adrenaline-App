@@ -34,7 +34,7 @@ class CoursesLayoutCubit extends Cubit<CourseLayoutState> {
     {
       debugPrint("Courses ${value.data}"),
       courses = value.data,
-      debugPrint("Courses ${courses.length}"),
+      debugPrint("Courses ${courses[0]}"),
       emit(CoursesLoaded()),
     }
     ).catchError((onError) =>
