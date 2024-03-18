@@ -9,12 +9,13 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'package:adrenaline/shared/compontents/conestans.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../shared/widgets/snack_bar.dart';
 class CoursesLayoutCubit extends Cubit<CourseLayoutState> {
   CoursesLayoutCubit() : super(CoursesInitial());
 
   static CoursesLayoutCubit get(context) => BlocProvider.of(context);
 
-  var courseslenght = 0;
 
   List<dynamic> courses = [];
 
@@ -43,4 +44,7 @@ class CoursesLayoutCubit extends Cubit<CourseLayoutState> {
       emit(CoursesFailed(onError)),
     });
   }
+
+
+
 }

@@ -62,11 +62,11 @@ class Instructors extends StatelessWidget {
                           ListView.separated(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) => instructors(cubit.instructors[0][index], context, ""),
+                              itemBuilder: (context, index) => instructors(cubit.instructors[index], context, ""),
                               separatorBuilder: (context, index) => SizedBox(
                                 height: 20.0,
                               ),
-                              itemCount: cubit.instructors[0].length
+                              itemCount: cubit.instructors.length
                           )
                         ],
                       ),

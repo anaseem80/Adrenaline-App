@@ -1,3 +1,4 @@
+import 'package:adrenaline/shared/constant/constants.dart';
 import 'package:flutter/material.dart';
 import 'layout/home_layout.dart';
 import 'shared/compontents/imports.dart';
@@ -12,18 +13,18 @@ bool get isRunningOnSimulator {
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // if (Platform.isAndroid) {
-  //   bool jailbroken = await FlutterJailbreakDetection.jailbroken;
-  //   bool developerMode = await FlutterJailbreakDetection.developerMode;
-  //   final deviceInfoPlugin = DeviceInfoPlugin();
-  //   // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-  //   final deviceInfo = await deviceInfoPlugin.androidInfo;
-  //   Future<void>.delayed(const Duration(seconds: 3), () {
-  //     if (deviceInfo.isPhysicalDevice == false) {
-  //       exit(0);
-  //     }
-  //   });
-  // }
+  if (Platform.isAndroid) {
+    bool jailbroken = await FlutterJailbreakDetection.jailbroken;
+    bool developerMode = await FlutterJailbreakDetection.developerMode;
+    final deviceInfoPlugin = DeviceInfoPlugin();
+    // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    final deviceInfo = await deviceInfoPlugin.androidInfo;
+    Future<void>.delayed(const Duration(seconds: 3), () {
+      if (deviceInfo.isPhysicalDevice == false) {
+        exit(0);
+      }
+    });
+  }
   Bloc.observer = SimpleBlocObserverr();
   Bloc.observer = MyBlocObserver();
   AppCubit();
@@ -33,6 +34,8 @@ void main() async {
   //CacheHelper.init();
   var shared = await SharedPreferences.getInstance();
   String? token;
+  userID = shared.getString('userID') ?? "";
+  debugPrint("UserID ${userID}");
   if (shared.containsKey('token')) {
     token = shared.getString('token');
   }
