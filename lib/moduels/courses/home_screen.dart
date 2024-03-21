@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                           MaterialPageRoute(builder: (context) => CourseScreen(
-                                            courseId: cubit.courses[0][itemIndex]['id'],
+                                            courseId: cubit.courses[itemIndex]['id'],
                                           ))
                                       );
                                     },

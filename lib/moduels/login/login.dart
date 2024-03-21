@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../layout/home_layout.dart';
 import '../../shared/compontents/compenants.dart';
+import '../../shared/constant/constants.dart';
 class LoginScreen extends StatefulWidget {
 
   @override
@@ -131,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
             shared.setString("email", state.loginModelData.data!.email.toString());
             shared.setString("firstname", state.loginModelData.data!.firstname.toString());
             shared.setString("userID", state.loginModelData.data!.id.toString());
+            userID = state.loginModelData.data!.id.toString();
             shared.setString("lastname", state.loginModelData.data!.lastname.toString());
             shared.setString("profile_photo_path", state.loginModelData.data!.user_picture.toString());
             shared.setString("token", state.loginModelData.token.toString()).then((value) => {

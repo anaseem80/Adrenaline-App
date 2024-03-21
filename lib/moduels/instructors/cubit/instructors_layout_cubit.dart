@@ -29,7 +29,7 @@ class InstructorsLayoutCubit extends Cubit<InstructorsLayoutState> {
         },
       ),
     ).then((value)  => {
-        instructors.add(value.data),
+        instructors = value.data,
         emit(InstructorsLayoutLoaded()),
     }).catchError((onError) =>{
         print(onError),

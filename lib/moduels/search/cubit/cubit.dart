@@ -19,12 +19,12 @@ class SearchCubit extends Cubit<SearchStates> {
       baseUrl + 'search?word=$searchText&field=courses',
       options: Options(
         headers: {
-          'Authorization': "16|qzJJFW1ptIccLS5aGEqrelxCHtfz6FGdhg8DEnU7",
+          'Authorization': shared.getString('token'),
         },
       ),
     ).then((value) {
       debugPrint("data ${value.data}");
-      courses = value.data;
+      courses = value.data['data'];
       debugPrint("search courses ${courses}");
       emit(SearchCoursesSuccessState());
     }).catchError((onError) {
