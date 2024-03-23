@@ -13,7 +13,7 @@ import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:root/root.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import '../moduels/courses/home_screen.dart';
+import '../moduels/courses/screens/home_screen.dart';
 import '../moduels/enrolled_courses_screen/enrolled_courses.dart';
 import '../shared/styles/styles.dart';
 import 'package:ios_insecure_screen_detector/ios_insecure_screen_detector.dart';
@@ -36,7 +36,6 @@ class _HomeLayoutState extends State<HomeLayout> {
     final IosInsecureScreenDetector insecureScreenDetector =
         IosInsecureScreenDetector();
     await insecureScreenDetector.initialize();
-
     while (true) {
       await Future.delayed(const Duration(seconds: 5)); // to avoid memory leak
       bool isCaptured = await insecureScreenDetector.isCaptured();

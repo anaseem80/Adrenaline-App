@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:adrenaline/shared/compontents/conestans.dart';
 import 'package:bloc/bloc.dart';
@@ -10,7 +9,6 @@ import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../shared/widgets/snack_bar.dart';
 
 
 part 'course_view_layout_state.dart';

@@ -19,20 +19,21 @@ void main() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
     // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     final deviceInfo = await deviceInfoPlugin.androidInfo;
-    Future<void>.delayed(const Duration(seconds: 3), () {
-      if (deviceInfo.isPhysicalDevice == false) {
-        exit(0);
-      }
-    });
+    // Future<void>.delayed(const Duration(seconds: 3), () {
+    //   // if (deviceInfo.isPhysicalDevice == false) {
+    //   //   exit(0);
+    //   // }
+    // });
   }
-  Bloc.observer = SimpleBlocObserverr();
-  Bloc.observer = MyBlocObserver();
+  // Bloc.observer = SimpleBlocObserverr();
+  // Bloc.observer = MyBlocObserver();
   AppCubit();
   // if (isRunningOnSimulator) {
   //   exit(0);
   // }
   //CacheHelper.init();
   var shared = await SharedPreferences.getInstance();
+  shared.setString('token', 'p5BkGLO356D8BsOTgAYMJoMkWLxq3bueDzYUgVXocjXNbumlHk');
   String? token;
   userID = shared.getString('userID') ?? "";
   debugPrint("UserID ${userID}");

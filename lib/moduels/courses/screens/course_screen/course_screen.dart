@@ -1,8 +1,7 @@
 
 // ignore_for_file: deprecated_member_use
 
-import 'package:adrenaline/moduels/courses/course_screen/rates/rates.dart';
-import 'package:adrenaline/moduels/courses/cubit/cubit.dart';
+import 'package:adrenaline/moduels/courses/screens/course_screen/rates/rates.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,13 +9,12 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../../shared/constant/constants.dart';
-import '../../../shared/widgets/snack_bar.dart';
+import '../../../../shared/constant/constants.dart';
+import '../../../../shared/widgets/snack_bar.dart';
 import '../course_sections/course_sections.dart';
 import 'cubit/course_view_layout_cubit.dart';
 class CourseScreen extends StatefulWidget {

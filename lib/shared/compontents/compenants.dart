@@ -1,7 +1,7 @@
 import 'package:adrenaline/moduels/Semester/semesters.dart';
 import 'package:adrenaline/moduels/collage_year/collage_year.dart';
 import 'package:adrenaline/moduels/collages/collages.dart';
-import 'package:adrenaline/moduels/courses/courses_screen/courses_screen.dart';
+import 'package:adrenaline/moduels/courses/models/course_model.dart';
 import 'package:adrenaline/moduels/instructors/instructor_view/instructor_view.dart';
 import 'package:adrenaline/moduels/instructors/instructors_module/instructors_module.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
@@ -11,8 +11,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../moduels/courses/course_screen/course_screen.dart';
+import '../../moduels/courses/screens/course_screen/course_screen.dart';
+import '../../moduels/courses/screens/courses_screen/courses_screen.dart';
 import '../../moduels/courses_semester/coursesSemester.dart';
+
 
 Widget TextFormFieldMain ({
   final void Function(String?)? onSubmit,
@@ -92,159 +94,159 @@ Widget DefaultButton ({
 );
 
 Widget CourseItem({
-  required course,
+  required  course,
   required context,
-  }) => Container(
-    width: 230.0,
-    child: Material(
-      borderRadius: BorderRadius.circular(15.0),
-      color: lowWhiteColor,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20.0),
-        splashColor: Colors.blue.withAlpha(30),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CourseScreen(
-              courseId: course['id'],
-            )),
-          );
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+}) => Container(
+  width: 230.0,
+  child: Material(
+    borderRadius: BorderRadius.circular(15.0),
+    color: lowWhiteColor,
+    child: InkWell(
+      borderRadius: BorderRadius.circular(20.0),
+      splashColor: Colors.blue.withAlpha(30),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CourseScreen(
+            courseId: course,
+          )),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: CachedNetworkImage(
-                imageUrl: course["image"],
-                imageBuilder: (context, imageProvider) => Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                placeholder: (context,url) => Container(
-                  height: 200,
-                  child: Container(
-                    height: 15,
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-                ),
-                errorWidget: (context,url,error) => Container(
-                  height: 200,
-                  child: Container(
-                    height: 15,
-                    child: Center(child: CircularProgressIndicator()),
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: CachedNetworkImage(
+              imageUrl: course["image"],
+              imageBuilder: (context, imageProvider) => Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
+              placeholder: (context,url) => Container(
+                height: 200,
+                child: Container(
+                  height: 15,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+              ),
+              errorWidget: (context,url,error) => Container(
+                height: 200,
+                child: Container(
+                  height: 15,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      course["name"],
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: whiteColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: font_size,
-                      ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: Text(
+                    course["name"],
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: font_size,
                     ),
                   ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Container(
-                    child: course.containsKey('owner') ? Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(course['owner']['profile_photo_path']),
-                          radius: 10.0,
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Expanded(
-                          child: Text(
-                            "By " + course['owner']['firstname'] + " " + course['owner']['lastname'],
-                            style: Theme.of(context).textTheme.bodyText1,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ) : Container(),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  child: course.containsKey('owner') ? Row(
                     children: [
-                      RatingBar.builder(
-                        initialRating: double.parse(course['rate']),
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        ignoreGestures: true,
-                        itemSize: font_size!,
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(course['owner']['profile_photo_path']),
+                        radius: 10.0,
                       ),
                       SizedBox(
                         width: 5.0,
                       ),
-                      Text(
-                        '( '+course['rate']+'.0 )',
-                        style: TextStyle(
-                          color: whiteColor,
-                          fontSize: 11
+                      Expanded(
+                        child: Text(
+                          "By " + course['owner']['firstname'] + " " + course['owner']['lastname'],
+                          style: Theme.of(context).textTheme.bodyText1,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
+                  ) : Container(),
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Row(
+                  children: [
+                    RatingBar.builder(
+                      initialRating: double.parse(course['rate']),
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      ignoreGestures: true,
+                      itemSize: font_size!,
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      '( '+course['rate']+'.0 )',
+                      style: TextStyle(
+                          color: whiteColor,
+                          fontSize: 11
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  decoration: BoxDecoration(
                       color: HexColor("#124baf"),
                       borderRadius: BorderRadius.circular(10.0)
-                    ),
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      course["price"] != null ? course["price"].toString() + " EGP" : "Free",
-                      style: TextStyle(
-                        fontSize: price_size,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
                   ),
-                ],
-              ),
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    course["price"] != null ? course["price"].toString() + " EGP" : "Free",
+                    style: TextStyle(
+                      fontSize: price_size,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             ),
-          ],
-),
+          ),
+        ],
       ),
     ),
-  );
+  ),
+);
 
 
 Widget UniversitesComponent({

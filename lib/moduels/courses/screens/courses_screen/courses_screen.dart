@@ -1,7 +1,8 @@
-import 'package:adrenaline/moduels/courses/courses_screen/cubit/courses_of_instructor_layout_cubit.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'cubit/courses_of_instructor_layout_cubit.dart';
 
 class Courses_screen extends StatelessWidget {
   int? moduleId;
