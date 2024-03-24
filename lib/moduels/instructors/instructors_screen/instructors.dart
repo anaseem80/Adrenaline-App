@@ -31,7 +31,7 @@ class Instructors_screen extends StatelessWidget {
                   children: [
                     screen_items_length(
                       title: "الاقسام",
-                      length:  cubit.instructors[0].length, context: context,
+                      length:  cubit.instructors.data!.length, context: context,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -43,11 +43,11 @@ class Instructors_screen extends StatelessWidget {
                           ListView.separated(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) => instructors(cubit.instructors[0][index], context, ""),
+                              itemBuilder: (context, index) => instructors(cubit.instructors.data![index], context, ""),
                               separatorBuilder: (context, index) => SizedBox(
                                 height: 20.0,
                               ),
-                              itemCount: cubit.instructors[0].length
+                              itemCount: cubit.instructors.data!.length
                           ),
                         ],
                       ),

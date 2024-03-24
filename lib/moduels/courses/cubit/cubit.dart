@@ -1,4 +1,3 @@
-
 import 'package:adrenaline/moduels/courses/cubit/state.dart';
 import 'package:adrenaline/moduels/courses/models/course_model.dart';
 import 'package:adrenaline/shared/enums/enums.dart';
@@ -25,14 +24,14 @@ class CoursesLayoutCubit extends Cubit<CourseLayoutState> {
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer ' + shared.getString('token')!,
+          // 'Authorization': 'Bearer ' + shared.getString('token')!,
         },
       ),
     ).then((value) =>
     {
-      debugPrint("Courses ${value.data}"),
+      // debugPrint("Courses ${value.data}"),
       courses = value.data,
-      debugPrint("Courses ${courses[0]}"),
+      // debugPrint("Courses ${courses[0]}"),
       emit(CoursesLoaded()),
     }
     ).catchError((onError) =>
@@ -66,6 +65,7 @@ CourseModel? highSchoolCoursesModel = CourseModel(
       highSchoolState=RequestState.loaded;
       emit(GetHighSchoolLoadedEvent());
     }).catchError((error) {
+      print(error);
       highSchoolState = RequestState.error;
       emit(GetHighSchoolErrorEvent());
     });
@@ -90,8 +90,6 @@ CourseModel? highSchoolCoursesModel = CourseModel(
         },
       ),
     ).then((value) {
-      print(value.data);
-      print('aghyad');
       publicCoursesModel = CourseModel.fromJson(value.data);
       publicState = RequestState.loaded;
       emit(GetPublicLoadedEvent());
@@ -120,7 +118,6 @@ CourseModel? highSchoolCoursesModel = CourseModel(
         },
       ),
     ).then((value) {
-      print(value.data);
       publicMedicineCoursesModel=CourseModel.fromJson(value.data);
       publicMedicineState=RequestState.loaded;
       emit(GetPublicMedicineLoadedEvent());

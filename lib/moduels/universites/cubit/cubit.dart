@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:adrenaline/moduels/universites/cubit/state.dart';
 import 'package:adrenaline/models/universites/universites.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
 import 'package:adrenaline/shared/compontents/conestans.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class UniversitesLayoutCubit extends Cubit<UniversitesLayoutState> {
@@ -25,19 +20,19 @@ class UniversitesLayoutCubit extends Cubit<UniversitesLayoutState> {
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+ shared.getString('token')!,
+          // 'Authorization': 'Bearer '+ shared.getString('token')!,
         },
       ),
     ).then((value) =>
     {
-        debugPrint("Response --> ${value.data}"),
+        // debugPrint("Response --> ${value.data}"),
         universitesData = Universites.fromJson(value.data),
         emit(UniversitesLoaded(data: universitesData)),
     }
-    ).catchError((onError) =>
+    ).catchError((onError)=>
     {
       print(onError),
-      emit(UniversitesFailed(onError)),
+      emit(UniversitesFailed(onError.toString()))
     });
   }
 }

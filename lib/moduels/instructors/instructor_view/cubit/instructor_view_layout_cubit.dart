@@ -21,7 +21,7 @@ class InstructorViewLayoutCubit extends Cubit<InstructorViewLayoutState> {
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+ shared.getString('token')!,
+          // 'Authorization': 'Bearer '+ shared.getString('token')!,
         },
       ),
     ).then((value)  => {

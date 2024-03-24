@@ -32,7 +32,7 @@ class CourseViewLayoutCubit extends Cubit<CourseViewLayoutState> {
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+ shared.getString('token')!,
+          // 'Authorization': 'Bearer '+ shared.getString('token')!,
         },
       ),
     ).then((value) =>
@@ -56,7 +56,7 @@ class CourseViewLayoutCubit extends Cubit<CourseViewLayoutState> {
     required int userId,
     required int courseId,
   }) async {
-    debugPrint("${reviewDescription} -- ${reviewStar} -- ${userId} -- ${courseId}");
+    // debugPrint("${reviewDescription} -- ${reviewStar} -- ${userId} -- ${courseId}");
     var shared = await SharedPreferences.getInstance();
     emit(ReviewLoadingState());
     var headers = {
@@ -69,11 +69,11 @@ class CourseViewLayoutCubit extends Cubit<CourseViewLayoutState> {
     if (response.statusCode == 200) {
       AlertDialog(title: Text('تم ارسال التقييم بنجاح'),);
       // ToastSnackBar(context: context, message: "تم ارسال التقييم بنجاح", status: Status.warning);
-      debugPrint("response --> ${await response.stream.bytesToString()}");
+      // debugPrint("response --> ${await response.stream.bytesToString()}");
       emit(ReviewSuccessState());
     }
     else {
-      debugPrint(response.reasonPhrase);
+      // debugPrint(response.reasonPhrase);
       emit(ReviewErrorState(error: response.reasonPhrase.toString()));
     }
   }

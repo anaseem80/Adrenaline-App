@@ -1,6 +1,7 @@
 import 'package:adrenaline/models/universites/universites.dart';
 import 'package:adrenaline/moduels/universites/cubit/cubit.dart';
 import 'package:adrenaline/moduels/universites/cubit/state.dart';
+import 'package:adrenaline/moduels/universites/universities_screen.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:adrenaline/shared/compontents/imports.dart';
 import 'package:adrenaline/shared/styles/styles.dart';
@@ -38,7 +39,7 @@ class Universites_Component extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {
-
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> UniversitiesScreen(universitiesModel: state.data,) ));
                               },
                               icon: Icon(
                                 Icons.arrow_circle_left_rounded,

@@ -46,7 +46,7 @@ class EnrolledCoursesLayoutCubit extends Cubit<EnrolledCourseLayoutState> {
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+ shared.getString('token')!,
+          // 'Authorization': 'Bearer '+ shared.getString('token')!,
         },
       ),
     ).then((value) =>

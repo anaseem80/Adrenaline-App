@@ -8,6 +8,8 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/instructor_model.dart';
+
 part 'instructors_layout_state.dart';
 
 class InstructorsLayoutCubit extends Cubit<InstructorsLayoutState> {
@@ -15,21 +17,25 @@ class InstructorsLayoutCubit extends Cubit<InstructorsLayoutState> {
 
   static InstructorsLayoutCubit get(context) => BlocProvider.of(context);
 
-  List<dynamic> instructors = [];
+  InstructorModel instructors = InstructorModel(
+    statusCode: 0,
+    message: '',
+    data: []
+  ) ;
 
   void getInstructors() async {
     var shared = await SharedPreferences.getInstance();
     var dio = Dio();
     await dio.get(
-      baseUrl + 'getInstructorsData',
+      baseUrl + 'getInstructors',
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+ shared.getString('token')!,
+          // 'Authorization': 'Bearer '+ shared.getString('token')!,
         },
       ),
     ).then((value)  => {
-        instructors = value.data,
+        instructors = InstructorModel.fromJson(value.data),
         emit(InstructorsLayoutLoaded()),
     }).catchError((onError) =>{
         print(onError),
