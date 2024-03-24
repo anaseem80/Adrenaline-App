@@ -22,7 +22,7 @@ class CoursesOfInstructorLayoutCubit extends Cubit<CoursesOfInstructorLayoutStat
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer '+ shared.getString('token')!,
+          // 'Authorization': 'Bearer '+ shared.getString('token')!,
         },
       ),
     ).then((value)  => {

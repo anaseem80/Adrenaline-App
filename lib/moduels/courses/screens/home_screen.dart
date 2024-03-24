@@ -1,8 +1,8 @@
 import 'package:adrenaline/moduels/Search/screens/search.dart';
 import 'package:adrenaline/moduels/courses/cubit/cubit.dart';
 import 'package:adrenaline/moduels/courses/cubit/state.dart';
+import 'package:adrenaline/moduels/courses/screens/public_courses_screen.dart';
 import 'package:adrenaline/moduels/courses/screens/widgets/course_item_widget.dart';
-import 'package:adrenaline/moduels/instructors/instructors.dart';
 import 'package:adrenaline/moduels/universites/universites.dart';
 import 'package:adrenaline/shared/compontents/compenants.dart';
 import 'package:adrenaline/shared/navigations/navigations.dart';
@@ -11,6 +11,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/styles/styles.dart';
+import '../../banners/cubit/banners_cubit.dart';
 import 'course_screen/course_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,13 +29,21 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          BlocProvider(
-              create: (context) => CoursesLayoutCubit()..main()..getHighSchoolCoursesData()..getPublicCoursesData(),
-              child: BlocConsumer<CoursesLayoutCubit, CourseLayoutState>(
+          MultiBlocProvider(
+  providers: [
+    BlocProvider<CoursesLayoutCubit>.value(
+              value: CoursesLayoutCubit()..main()..getPublicCoursesData()..getHighSchoolCoursesData(),
+          ),
+    BlocProvider<BannersCubit>.value(
+      value: BannersCubit()..getMainBannersData(),
+    ),
+  ],
+  child: BlocConsumer<CoursesLayoutCubit, CourseLayoutState>(
                   listener: (context, state) async {
                   },
                   builder: (context, state) {
-                    var cubit = CoursesLayoutCubit.get(context);
+                    var coursesCubit = CoursesLayoutCubit.get(context);
+                    var bannersCubit = BannersCubit.get(context);
                     return SingleChildScrollView(
                       child: Container(
                         child: Column(
@@ -65,24 +75,21 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
 
-                            /// Courses
+                            /// main banners
                             Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Text(
-                                "الكورسات الرائجة",
+                                "الاعلانات",
                                 style: Theme.of(context).textTheme.headline5,
                               ),
                             ),
                             SizedBox(
                               height: 20.0,
                             ),
-                            if (cubit.courses.isNotEmpty)
+                            if (coursesCubit.courses.isNotEmpty)
                               CarouselSlider.builder(
-                                itemCount: cubit.courses.length,
+                                itemCount: bannersCubit.mainBannersModel!.banners!.length,
                                 options: CarouselOptions(
                                   height: 230,
                                   aspectRatio: 16/9,
@@ -99,12 +106,12 @@ class HomeScreen extends StatelessWidget {
                                 itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
                                     InkWell(
                                       onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => CourseScreen(
-                                              courseId: cubit.courses[itemIndex]['id'],
-                                            ))
-                                        );
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(builder: (context) => CourseScreen(
+                                        //       courseId: coursesCubit.courses[itemIndex]['id'],
+                                        //     ))
+                                        // );
                                       },
                                       child: Stack(
                                         children: [
@@ -113,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(15.0),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: cubit.courses[itemIndex]['image'],
+                                                  imageUrl:  bannersCubit.mainBannersModel!.banners![itemIndex].image!,
                                                   imageBuilder: (context, imageProvider) => Container(
                                                     height: 200,
                                                     decoration: BoxDecoration(
@@ -160,12 +167,11 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                               ),
-                            SizedBox(
-                              height: 30.0,
-                            ),
 
                             /// high school Courses
+                            if (coursesCubit.highSchoolCoursesModel!.data!.isNotEmpty)
                             Container(
+                              margin: EdgeInsets.symmetric(vertical: 15),
                               padding: EdgeInsets.all(15.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -177,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 20.0,
                                   ),
-                                  if (cubit.courses.isNotEmpty)
+                                  if (coursesCubit.courses.isNotEmpty)
                                     SizedBox(
                                       height: 350,
                                       child: ListView.separated(
@@ -185,32 +191,83 @@ class HomeScreen extends StatelessWidget {
                                         reverse: true,
                                         physics: BouncingScrollPhysics(),
                                         itemBuilder: (context, index) => CourseItemWidget(
-                                            course:cubit.highSchoolCoursesModel!.data![index],
+                                            course:coursesCubit.highSchoolCoursesModel!.data![index],
                                             context: context
                                         ),
                                         separatorBuilder: (context, index) => SizedBox(
                                           width: 20.0,
                                         ),
-                                        itemCount: cubit.highSchoolCoursesModel!.data!.length,
+                                        itemCount: coursesCubit.highSchoolCoursesModel!.data!.length,
                                       ),
                                     ),
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: 30.0,
-                            ),
-
-                            /// Latest Offers
-                            if (cubit.courses.isNotEmpty)
+                            /// public courses
+                            if (coursesCubit.publicCoursesModel!.data!.isNotEmpty)
                               Container(
+                                 margin: EdgeInsets.symmetric(vertical: 15),
+                                padding: EdgeInsets.all(15.0),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PublicCoursesScreen(publicCoursesModel: coursesCubit.publicCoursesModel!)));
+                                              },
+                                              icon: Icon(
+                                                Icons.arrow_circle_left_rounded,
+                                                color: whiteColor,
+                                              ),
+                                            ),
+                                            Text(
+                                              "الكورسات العامة",
+                                              style: Theme.of(context).textTheme.headline5,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.0,
+                                      ),
+                                      SizedBox(
+                                        height: 350,
+                                        child: ListView.separated(
+                                          scrollDirection: Axis.horizontal,
+                                          reverse: true,
+                                          physics: BouncingScrollPhysics(),
+                                          itemBuilder: (context, index) => CourseItemWidget(
+                                              course:coursesCubit.publicCoursesModel!.data![index],
+                                              context: context
+                                          ),
+                                          separatorBuilder: (context, index) => SizedBox(
+                                            width: 20.0,
+                                          ),
+                                          itemCount: coursesCubit.publicCoursesModel!.data!.length,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                            // public medicine courses
+                            if (coursesCubit.publicMedicineCoursesModel!.data!.isNotEmpty)
+                              Container(
+                                margin:EdgeInsets.symmetric(vertical: 15),
                                 padding: EdgeInsets.all(15.0),
                                 child: Container(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        "public courses",
+                                        "الكورسات الطبية العامة",
                                         style: Theme.of(context).textTheme.headline5,
                                       ),
                                       SizedBox(
@@ -223,19 +280,20 @@ class HomeScreen extends StatelessWidget {
                                           reverse: true,
                                           physics: BouncingScrollPhysics(),
                                           itemBuilder: (context, index) => CourseItemWidget(
-                                              course:cubit.publicCoursesModel!.data![index],
+                                              course:coursesCubit.publicMedicineCoursesModel!.data![index],
                                               context: context
                                           ),
                                           separatorBuilder: (context, index) => SizedBox(
                                             width: 20.0,
                                           ),
-                                          itemCount: cubit.publicCoursesModel!.data!.length,
+                                          itemCount: coursesCubit.publicMedicineCoursesModel!.data!.length,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
+
                           ],
                         ),
                       ),
@@ -292,9 +350,9 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(
                                 height: 20.0,
                               ),
-                              if (cubit.courses.isNotEmpty)
+                              if (coursesCubit.courses.isNotEmpty)
                               CarouselSlider.builder(
-                                itemCount: cubit.courses.length,
+                                itemCount: coursesCubit.courses.length,
                                 options: CarouselOptions(
                                   height: 230,
                                   aspectRatio: 16/9,
@@ -314,7 +372,7 @@ class HomeScreen extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                           MaterialPageRoute(builder: (context) => CourseScreen(
-                                            courseId: cubit.courses[itemIndex]['id'],
+                                            courseId: coursesCubit.courses[itemIndex]['id'],
                                           ))
                                       );
                                     },
@@ -325,7 +383,7 @@ class HomeScreen extends StatelessWidget {
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(15.0),
                                             child: CachedNetworkImage(
-                                              imageUrl: cubit.courses[itemIndex]['image'],
+                                              imageUrl: coursesCubit.courses[itemIndex]['image'],
                                               imageBuilder: (context, imageProvider) => Container(
                                                 height: 200,
                                                 decoration: BoxDecoration(
@@ -389,7 +447,7 @@ class HomeScreen extends StatelessWidget {
                                     SizedBox(
                                       height: 20.0,
                                     ),
-                                    if (cubit.courses.isNotEmpty)
+                                    if (coursesCubit.courses.isNotEmpty)
                                     SizedBox(
                                       height: 350,
                                       child: ListView.separated(
@@ -397,13 +455,13 @@ class HomeScreen extends StatelessWidget {
                                         reverse: true,
                                         physics: BouncingScrollPhysics(),
                                         itemBuilder: (context, index) => CourseItem(
-                                            course:cubit.courses[index],
+                                            course:coursesCubit.courses[index],
                                             context: context
                                         ),
                                         separatorBuilder: (context, index) => SizedBox(
                                           width: 20.0,
                                         ),
-                                        itemCount: cubit.courses.length,
+                                        itemCount: coursesCubit.courses.length,
                                       ),
                                     ),
                                   ],
@@ -414,7 +472,7 @@ class HomeScreen extends StatelessWidget {
                               ),
 
                               /// Latest Offers
-                              if (cubit.courses.isNotEmpty)
+                              if (coursesCubit.courses.isNotEmpty)
                               Container(
                                 padding: EdgeInsets.all(15.0),
                                 child: Container(
@@ -435,13 +493,13 @@ class HomeScreen extends StatelessWidget {
                                           reverse: true,
                                           physics: BouncingScrollPhysics(),
                                           itemBuilder: (context, index) => CourseItem(
-                                              course:cubit.courses[index],
+                                              course:coursesCubit.courses[index],
                                               context: context
                                           ),
                                           separatorBuilder: (context, index) => SizedBox(
                                             width: 20.0,
                                           ),
-                                          itemCount: cubit.courses.length,
+                                          itemCount: coursesCubit.courses.length,
                                         ),
                                       ),
                                     ],
@@ -463,8 +521,8 @@ class HomeScreen extends StatelessWidget {
                       return Container();
                     }
                   }
-              )
-          ),
+              ),
+),
           SizedBox(
             height: 5.0,
           ),
@@ -472,7 +530,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(
             height: 30.0,
           ),
-          Instructors(),
+          // Instructors(),
           SizedBox(
             height: 30.0,
           ),

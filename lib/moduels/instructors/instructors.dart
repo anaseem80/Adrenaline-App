@@ -20,7 +20,7 @@ class Instructors extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }else if(state is InstructorsLayoutLoaded){
-            if(cubit.instructors[0].length > 0){
+            if(cubit.instructors.data!.length > 0){
               return Container(
                 padding: EdgeInsets.only(
                   right: 15.0,
@@ -62,11 +62,11 @@ class Instructors extends StatelessWidget {
                           ListView.separated(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) => instructors(cubit.instructors[index], context, ""),
+                              itemBuilder: (context, index) => instructors(cubit.instructors.data![index], context, ""),
                               separatorBuilder: (context, index) => SizedBox(
                                 height: 20.0,
                               ),
-                              itemCount: cubit.instructors.length
+                              itemCount: cubit.instructors.data!.length
                           )
                         ],
                       ),
